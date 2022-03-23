@@ -44,3 +44,4 @@ zenoh-util           = {git = "https://github.com/eclipse-zenoh/zenoh.git", rev 
 zenoh-core           = {git = "https://github.com/eclipse-zenoh/zenoh.git", rev = "6de43038123e622c9a69ddc1d5c881f844728475"}
 zenoh-cfg-properties = {git = "https://github.com/eclipse-zenoh/zenoh.git", rev = "6de43038123e622c9a69ddc1d5c881f844728475"}
 zenoh-protocol-core  = {git = "https://github.com/eclipse-zenoh/zenoh.git", rev = "6de43038123e622c9a69ddc1d5c881f844728475"}
+async-std = { git = "https://github.com/async-rs/async-std.git", tag = "v1.10.0" }
