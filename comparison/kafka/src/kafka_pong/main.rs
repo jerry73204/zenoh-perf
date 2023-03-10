@@ -33,7 +33,6 @@ async fn main() -> Result<()> {
 async fn run_pong(opts: Opts) -> Result<()> {
     let pong_id = process::id();
     info!("Start pong {}", pong_id);
-    // let record_key = pong_id.to_le_bytes();
 
     let client_config = {
         let mut conf = ClientConfig::new();

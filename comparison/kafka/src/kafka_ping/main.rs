@@ -131,8 +131,6 @@ fn create_consumer(
     topic: &str,
 ) -> Result<AsyncStdStreamConsumer> {
     config
-        // .set("enable.partition.eof", "false")
-        // .set("enable.auto.commit", "false")
         .set("group.id", DEFAULT_GROUP_ID)
         .set("session.timeout.ms", "6000");
 
@@ -233,7 +231,6 @@ async fn recv(
             Ok(true)
         }
         Ok(Err(E::MessageConsumption(C::UnknownTopicOrPartition))) => {
-            // retry
             trace!(
                 "The topic {} is not created yet, retry again",
                 opts.pong_topic
