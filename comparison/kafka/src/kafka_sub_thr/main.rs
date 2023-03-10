@@ -101,7 +101,6 @@ async fn run_consumer(opts: Opts) -> Result<()> {
         );
         counter.fetch_add(1, Ordering::Relaxed);
     }
-    Ok(())
 }
 
 pub fn parse_payload(payload: &[u8], expect_size: usize) -> Result<PayloadInfo> {

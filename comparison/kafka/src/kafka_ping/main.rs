@@ -52,9 +52,6 @@ async fn run_latency_benchmark(opts: Opts) -> Result<()> {
     };
     info!("Start ping {}", ping_id);
 
-    // let producer = ping_producer(&opts, &client_config, ping_id);
-    // let consumer = pong_consumer(&opts, &client_config, ping_id);
-    // try_join!(producer, consumer)?;
     run_ping_pong(&opts, &client_config, ping_id).await?;
 
     Ok(())

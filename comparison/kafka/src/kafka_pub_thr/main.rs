@@ -1,14 +1,12 @@
 mod opts;
 
-use std::{iter, process, time::Duration};
-
 use anyhow::{anyhow, Result};
 use clap::Parser;
-use itertools::chain;
 use kafka_test::AsyncStdFutureProducer;
 use log::{info, trace};
 use opts::Opts;
 use rdkafka::{producer::FutureRecord, ClientConfig};
+use std::{process, time::Duration};
 
 #[async_std::main]
 async fn main() -> Result<()> {
@@ -44,16 +42,6 @@ async fn run_producer(opts: Opts) -> Result<()> {
     }
 
     let producer: AsyncStdFutureProducer = client_config.create()?;
-
-    // let producer: FutureProducer = ClientConfig::new()
-    //     .set("bootstrap.servers", &opts.brokers)
-    //     .set("message.timeout.ms", "5000")
-    //     .set("linger.ms", "0")
-    //     .set("batch.size", "200KB")
-    //     .set("compression.type", "lz4")
-    //     .set("acks", "1")
-    //     // .set("metadata.max.age.ms", "180000")
-    //     .create()?;
 
     for msg_idx in 0.. {
         let key = producer_id.to_le_bytes();
