@@ -1,16 +1,15 @@
 mod opts;
 
 use async_std::{sync::Arc, task};
-use std::sync::atomic::{AtomicUsize, Ordering};
 use std::{
     process,
+    sync::atomic::{AtomicUsize, Ordering},
     time::{Duration, Instant},
 };
 
 use anyhow::{anyhow, ensure, Result};
 use clap::Parser;
-use kafka_test::AsyncStdStreamConsumer;
-use kafka_test::DEFAULT_GROUP_ID;
+use kafka_test::{AsyncStdStreamConsumer, DEFAULT_GROUP_ID};
 use log::{error, info, trace};
 use opts::Opts;
 use rdkafka::{
@@ -51,9 +50,7 @@ async fn run_consumer(opts: Opts) -> Result<()> {
         let consumer: AsyncStdStreamConsumer = ClientConfig::new()
             .set("bootstrap.servers", &opts.brokers)
             .set("group.id", DEFAULT_GROUP_ID)
-            // .set("enable.partition.eof", "false")
             .set("session.timeout.ms", "6000")
-            // .set("enable.auto.commit", "false")
             .create()?;
         consumer.subscribe(&[&opts.topic])?;
         Ok(consumer)
@@ -101,7 +98,6 @@ async fn run_consumer(opts: Opts) -> Result<()> {
         );
         counter.fetch_add(1, Ordering::Relaxed);
     }
-    Ok(())
 }
 
 pub fn parse_payload(payload: &[u8], expect_size: usize) -> Result<PayloadInfo> {

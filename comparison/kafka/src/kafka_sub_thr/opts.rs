@@ -11,10 +11,6 @@ pub struct Opts {
     pub timeout: Option<Duration>,
     #[clap(long, value_enum, default_value = "human")]
     pub output_format: OutputFormat,
-
-    // pub no_multicast_scouting: bool,
-
-    // public options
     #[clap(short = 'b', long, default_value = "127.0.0.1")]
     pub brokers: String,
     #[clap(short = 'p', long)]

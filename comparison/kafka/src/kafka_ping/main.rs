@@ -52,9 +52,6 @@ async fn run_latency_benchmark(opts: Opts) -> Result<()> {
     };
     info!("Start ping {}", ping_id);
 
-    // let producer = ping_producer(&opts, &client_config, ping_id);
-    // let consumer = pong_consumer(&opts, &client_config, ping_id);
-    // try_join!(producer, consumer)?;
     run_ping_pong(&opts, &client_config, ping_id).await?;
 
     Ok(())
@@ -134,8 +131,6 @@ fn create_consumer(
     topic: &str,
 ) -> Result<AsyncStdStreamConsumer> {
     config
-        // .set("enable.partition.eof", "false")
-        // .set("enable.auto.commit", "false")
         .set("group.id", DEFAULT_GROUP_ID)
         .set("session.timeout.ms", "6000");
 
@@ -236,7 +231,6 @@ async fn recv(
             Ok(true)
         }
         Ok(Err(E::MessageConsumption(C::UnknownTopicOrPartition))) => {
-            // retry
             trace!(
                 "The topic {} is not created yet, retry again",
                 opts.pong_topic

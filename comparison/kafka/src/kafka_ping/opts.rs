@@ -35,12 +35,6 @@ fn parse_timeout(text: &str) -> Result<Duration> {
     Ok(dur)
 }
 
-// fn parse_interval(text: &str) -> Result<Duration> {
-//     let secs = R64::from_str_radix(text, 10).map_err(|_| anyhow!("invalid interval {}", text))?;
-//     let dur = Duration::from_secs_f64(secs.raw());
-//     Ok(dur)
-// }
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, ValueEnum)]
 #[clap(rename_all = "snake_case")]
 pub enum OutputFormat {
