@@ -42,10 +42,10 @@ async fn run_producer(opts: Opts) -> Result<()> {
     }
 
     let producer: AsyncStdFutureProducer = client_config.create()?;
+    let payload: Vec<u8> = (0..opts.payload_size).map(|i| (i % 10) as u8).collect();
 
     for msg_idx in 0.. {
         let key = producer_id.to_le_bytes();
-        let payload = generate_payload(producer_id, msg_idx as u32, opts.payload_size);
         let record = FutureRecord::to(&opts.topic).payload(&payload).key(&key);
 
         trace!("Producer {} sends a message {}", producer_id, msg_idx);
@@ -56,14 +56,4 @@ async fn run_producer(opts: Opts) -> Result<()> {
     }
 
     Ok(())
-}
-
-pub fn generate_payload(producer_id: u32, msg_index: u32, payload_size: usize) -> Vec<u8> {
-    let producer_id_bytes: [u8; 4] = producer_id.to_le_bytes();
-    let msg_idx_bytes: [u8; 4] = (msg_index as u32).to_le_bytes();
-    let pad_bytes = {
-        let pad_size = payload_size - producer_id_bytes.len() - msg_idx_bytes.len();
-        iter::repeat(0u8).take(pad_size)
-    };
-    chain!(producer_id_bytes, msg_idx_bytes, pad_bytes).collect()
 }
